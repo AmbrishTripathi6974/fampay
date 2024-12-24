@@ -16,7 +16,7 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       initialBinding: GeneralBindings(),
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }
