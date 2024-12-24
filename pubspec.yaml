@@ -15,7 +15,9 @@ dependencies:
   http: ^1.2.2
   iconsax: ^0.0.8
   intl: ^0.20.1
+  shared_preferences: ^2.3.4
   shimmer: ^3.0.0
+  workmanager: ^0.5.2
 
 dev_dependencies:
   flutter_test:

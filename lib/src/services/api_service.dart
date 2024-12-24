@@ -1,24 +1,59 @@
-import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../data/api/constants.dart';
-class ApiService {
-  static Future<List<dynamic>> fetchHcGroups() async {
+import 'dart:convert';
+
+class FamxPayApiService {
+  static const String baseUrl = 'https://polyjuice.kong.fampay.co';
+  static const String endpoint = '/mock/famapp/feed/home_section/';
+  
+  final http.Client client;
+
+  FamxPayApiService({required this.client});
+
+  Future<Map<String, dynamic>> getFamxPayData() async {
     try {
-      final response = await http.get(Uri.parse(Constants.apiUrl));
-      print("HTTP Status Code: ${response.statusCode}"); // Log status code
+      final queryParameters = {
+        'slugs': 'famx-paypage',
+      };
+
+      final uri = Uri.parse(baseUrl + endpoint).replace(
+        queryParameters: queryParameters,
+      );
+
+      final headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        // Add any required auth headers here
+      };
+
+      final response = await client.get(uri, headers: headers);
 
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        print("Raw API Response: $data"); // Log raw response
-        final hcGroups = data['hc_groups']; // Accessing `hc_groups`
-        print("Parsed HC Groups: $hcGroups"); // Log parsed data
-        return hcGroups ?? [];
+        final decodedResponse = json.decode(response.body);
+        
+        // Check if the response has sections
+        if (decodedResponse['sections'] != null && 
+            decodedResponse['sections'] is List &&
+            decodedResponse['sections'].isNotEmpty) {
+          
+          // Find the famx-paypage section
+          final famxPaySection = decodedResponse['sections'].firstWhere(
+            (section) => section['slug'] == 'famx-paypage',
+            orElse: () => null,
+          );
+
+          if (famxPaySection != null) {
+            return famxPaySection;
+          } else {
+            throw Exception('famx-paypage section not found in response');
+          }
+        } else {
+          throw Exception('No sections found in response');
+        }
       } else {
-        throw Exception("Failed to load HC Groups: ${response.statusCode}");
+        throw Exception('Failed to load FamxPay data: ${response.statusCode}');
       }
     } catch (e) {
-      print("Error fetching data: $e");
-      rethrow;
+      throw Exception('Error fetching FamxPay data: $e');
     }
   }
 }
