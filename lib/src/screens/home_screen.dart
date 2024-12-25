@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-
 import '../controller/fampay_controller.dart';
-import '../data/repository/fampay_repo.dart';
-import '../services/api_service.dart';
 
 class HomeScreen extends StatelessWidget {
-  final FamxPayController controller = Get.put(
-    FamxPayController(
-      repository: FamxPayRepository(
-        apiService: FamxPayApiService(client: http.Client()),
-      ),
-    ),
-  );
+  HomeScreen({super.key});
+
+  final controller = Get.put(FamxPayController());
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +55,12 @@ class HomeScreen extends StatelessWidget {
           itemBuilder: (context, cardIndex) {
             final card = group['cards'][cardIndex];
             return GestureDetector(
-              onLongPress: () => controller.handleLongPress(card['id']), // Updated
+              onLongPress: () =>
+                  controller.handleLongPress(card['id']), // Updated
               onTap: () => controller.clearLongPress(),
               child: Obx(() {
-                final isLongPressed =
-                    controller.longPressedCardId.value == card['id'].toString(); // Updated
+                final isLongPressed = controller.longPressedCardId.value ==
+                    card['id'].toString(); // Updated
 
                 return Stack(
                   children: [

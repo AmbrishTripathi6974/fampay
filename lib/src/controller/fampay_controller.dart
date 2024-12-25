@@ -1,14 +1,16 @@
+import 'package:fampay/src/services/api_service.dart';
 import 'package:get/get.dart';
 import '../data/repository/fampay_repo.dart';
+import 'package:http/http.dart' as http;
 
 class FamxPayController extends GetxController {
-  final FamxPayRepository repository;
-
-  FamxPayController({required this.repository});
+  static FamxPayController get instance => Get.find();
 
   var isLoading = true.obs;
   var famxPayData = {}.obs;
   RxnString longPressedCardId = RxnString(); // Updated to handle string IDs
+  final repository = Get.put(FamxPayRepository(apiService: FamxPayApiService(client: http.Client())));
+
 
   @override
   void onInit() {
