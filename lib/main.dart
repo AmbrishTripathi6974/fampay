@@ -1,8 +1,8 @@
-import 'package:fampay/src/bindings/general_bindings.dart';
+import 'package:fampay/src/bindings/general_binding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'src/screens/home_screen.dart';
+import 'src/views/home_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialBinding: GeneralBindings(),
+      initialBinding: GeneralBinding(),
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );

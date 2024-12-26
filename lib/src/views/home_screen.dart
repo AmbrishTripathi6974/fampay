@@ -1,8 +1,4 @@
-import 'package:fampay/src/widgets/big_card.dart';
-import 'package:fampay/src/widgets/card_with_arrow.dart';
-import 'package:fampay/src/widgets/dynamic_card.dart';
-import 'package:fampay/src/widgets/horizontal_cards.dart';
-import 'package:fampay/src/widgets/small_display_card.dart';
+import 'package:fampay/src/views/contextual_container.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -32,27 +28,7 @@ class HomeScreen extends StatelessWidget {
             topRight: Radius.circular(18),
           ),
         ),
-        child: const Column(
-          children: [
-            // HC3 : Big Data Card
-
-            BigCardWidget(),
-
-            // HC6 : Cards with Arrow
-
-            CardWithArrow(),
-
-            // HC5 : Card with dynamic height
-
-            DynamicCard(),
-
-            // HC9 : Scrollable horizontal cards
-            HorizontalCards(),
-
-            // HC1 : Small display card
-            SmallDisplayCard(),
-          ],
-        ),
+        child: ContextualContainer(),
       ),
     );
   }
