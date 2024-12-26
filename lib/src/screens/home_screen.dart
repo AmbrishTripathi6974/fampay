@@ -1,140 +1,58 @@
+import 'package:fampay/src/widgets/big_card.dart';
+import 'package:fampay/src/widgets/card_with_arrow.dart';
+import 'package:fampay/src/widgets/dynamic_card.dart';
+import 'package:fampay/src/widgets/horizontal_cards.dart';
+import 'package:fampay/src/widgets/small_display_card.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../controller/fampay_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
-
-  final controller = Get.put(FamxPayController());
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
         title: Image.asset(
           'assets/images/fampay_logo.png',
-          height: 40, // Adjust as needed
+          height: 40,
         ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
-      body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
-        }
 
-        final hcGroups = controller.famxPayData['hc_groups'] ?? [];
+      // Body
 
-        return ListView.builder(
-          itemCount: hcGroups.length,
-          itemBuilder: (context, index) {
-            final group = hcGroups[index];
-            return buildGroup(group);
-          },
-        );
-      }),
-    );
-  }
-
-  Widget buildGroup(Map<String, dynamic> group) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            '${group['name']} (${group['design_type']})',
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 233, 250, 234),
+          // color: Colors.amber,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(18),
+            topRight: Radius.circular(18),
           ),
         ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: group['cards'].length,
-          itemBuilder: (context, cardIndex) {
-            final card = group['cards'][cardIndex];
-            return GestureDetector(
-              onLongPress: () =>
-                  controller.handleLongPress(card['id']), // Updated
-              onTap: () => controller.clearLongPress(),
-              child: Obx(() {
-                final isLongPressed = controller.longPressedCardId.value ==
-                    card['id'].toString(); // Updated
+        child: const Column(
+          children: [
+            // HC3 : Big Data Card
 
-                return Stack(
-                  children: [
-                    buildCard(card),
-                    if (isLongPressed)
-                      Positioned.fill(
-                        child: buildLongPressOverlay(card),
-                      ),
-                  ],
-                );
-              }),
-            );
-          },
+            BigCardWidget(),
+
+            // HC6 : Cards with Arrow
+
+            CardWithArrow(),
+
+            // HC5 : Card with dynamic height
+
+            DynamicCard(),
+
+            // HC9 : Scrollable horizontal cards
+            HorizontalCards(),
+
+            // HC1 : Small display card
+            SmallDisplayCard(),
+          ],
         ),
-      ],
-    );
-  }
-
-  Widget buildCard(Map<String, dynamic> card) {
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (card['bg_image'] != null)
-            Image.network(
-              card['bg_image']['image_url'],
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  height: 100,
-                  color: Colors.grey[200],
-                  child: const Center(child: Text("Image failed to load")),
-                );
-              },
-            ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              card['title'] ?? '',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
-          if (card['cta'] != null)
-            TextButton(
-              onPressed: () {
-                // Handle CTA action
-              },
-              child: Text(card['cta'][0]['text']),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildLongPressOverlay(Map<String, dynamic> card) {
-    return Container(
-      color: Colors.black.withOpacity(0.6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(
-            icon: const Icon(Icons.timer, color: Colors.white),
-            onPressed: () {
-              // Handle "Remind Later"
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.delete, color: Colors.white),
-            onPressed: () {
-              // Handle "Dismiss Now"
-            },
-          ),
-        ],
       ),
     );
   }
