@@ -1,33 +1,28 @@
 import 'package:flutter/material.dart';
+
 import '../../models/contextual_card_model.dart';
 
 class HC6Card extends StatelessWidget {
   final List<CardDetails> cards;
 
-  const HC6Card(this.cards, {super.key});
+  HC6Card(this.cards);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: cards.map((card) {
         return ListTile(
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(card.bgImageUrl ?? ''),
-            backgroundColor: Colors.grey,
-          ),
+          leading: card.icon != null
+              ? Image.network(card.icon!.imageUrl, width: 32, height: 32)
+              : null,
           title: Text(
-            card.title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+            card.title ?? '',
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
-          subtitle: Text(card.description ?? ''),
-          trailing: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              // Handle card dismissal
-            },
-          ),
+          trailing: const Icon(Icons.arrow_forward_ios),
+          onTap: () {
+            // Add navigation or action
+          },
         );
       }).toList(),
     );

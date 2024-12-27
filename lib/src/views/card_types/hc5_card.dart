@@ -8,30 +8,29 @@ class HC5Card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: cards.map((card) {
-        return GestureDetector(
-          onTap: () {
-            // Handle card tap action
-          },
-          child: Container(
-            margin: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              image: card.bgImageUrl != null
-                  ? DecorationImage(
-                      image: NetworkImage(card.bgImageUrl!),
-                      fit: BoxFit.cover,
-                    )
-                  : null,
-              color: card.bgColor != null
-                  ? Color(int.parse(card.bgColor!.replaceFirst('#', '0xff')))
-                  : Colors.grey,
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: cards.map((card) {
+          return GestureDetector(
+            onTap: () {
+              // Handle card tap action
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                image: card.bgImageUrl != null
+                    ? DecorationImage(
+                        image: NetworkImage(card.bgImageUrl!),
+                        fit: BoxFit.contain,
+                      )
+                    : null,
+              ),
+              height: MediaQuery.of(context).size.height * 0.28,
             ),
-            height: 200.0,
-          ),
-        );
-      }).toList(),
+          );
+        }).toList(),
+      ),
     );
   }
 }

@@ -13,20 +13,15 @@ class ContextualCardController extends GetxController {
     fetchCards();
   }
 
-  void fetchCards() async {
-    isLoading(true);
+  Future<void> fetchCards() async {
     try {
-      final response = await ApiService.getCards();
-      cards.assignAll(response);
+      isLoading.value = true;
+      var fetchedCards = await ApiService.getCards();
+      cards.value = fetchedCards;
     } catch (e) {
-      errorMessage(e.toString());
+      errorMessage.value = e.toString();
     } finally {
-      isLoading(false);
+      isLoading.value = false;
     }
-  }
-
-  void dismissCard(int cardId) {
-    cards.removeWhere((group) =>
-        group.cards.any((card) => card.title.hashCode == cardId));
   }
 }
