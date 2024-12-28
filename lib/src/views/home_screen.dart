@@ -21,8 +21,8 @@ class HomeScreen extends StatelessWidget {
 
       body: Container(
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 233, 250, 234),
-          // color: Colors.amber,
+          // color: Color.fromARGB(255, 233, 250, 234),
+          color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(18),
             topRight: Radius.circular(18),

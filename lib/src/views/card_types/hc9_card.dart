@@ -7,25 +7,34 @@ class HC9Card extends StatelessWidget {
 
   const HC9Card({
     required this.cards,
-    this.isScrollable = false,
+    this.isScrollable = true, // Default to scrollable
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 195.0,
+      height: 220, // Set the max height to accommodate varying card heights
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: isScrollable
             ? const BouncingScrollPhysics()
             : const NeverScrollableScrollPhysics(),
         itemCount: cards.length,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0), // Spacing on the left and right
         itemBuilder: (context, index) {
           final card = cards[index];
+          final double cardWidth = card.aspectRatio != null
+              ? 195 * card.aspectRatio!.toDouble() // Ensure it's explicitly a double
+              : 195.0; // Default value as double
+
           return Container(
-            width: card.aspectRatio != null ? 195 * card.aspectRatio! : 195,
-            margin: const EdgeInsets.symmetric(horizontal: 8.0),
+            margin: EdgeInsets.only(
+              left: index == 0 ? 0 : 8.0, // No margin on the left for the first card
+              right: index == cards.length - 1 ? 0 : 8.0, // No margin on the right for the last card
+            ),
+            width: cardWidth,
+            height: cardWidth * 0.5, // Adjust the height dynamically
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
               gradient: card.bgGradient != null

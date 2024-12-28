@@ -36,19 +36,19 @@ class HC3Card extends StatelessWidget {
               ),
             const Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: RichText(
                 text: TextSpan(
                   children: card.formattedTitle?.entities.map((entity) {
                         return TextSpan(
-                          text: "${entity.text}\n", // Add newline if needed
+                          text: "${entity.text}\n\n",
                           style: TextStyle(
                             color: entity.color.isNotEmpty
                                 ? Color(int.parse(entity.color.replaceFirst('#', '0xFF')))
                                 : Colors.black,
                             fontSize: entity.fontSize?.toDouble() ?? 16,
                             fontWeight: entity.fontStyle == "underline"
-                                ? FontWeight.bold
+                                ? FontWeight.w500
                                 : FontWeight.normal,
                             fontFamily: entity.fontFamily ?? 'default',
                           ),
@@ -59,10 +59,10 @@ class HC3Card extends StatelessWidget {
                 textAlign: TextAlign.left, // Align text to the left
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 40),
             if (card.cta != null && card.cta!.isNotEmpty)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(

@@ -9,7 +9,7 @@ class HC5Card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         children: cards.map((card) {
           return GestureDetector(
@@ -17,16 +17,17 @@ class HC5Card extends StatelessWidget {
               // Handle card tap action
             },
             child: Container(
+              height: 150, // Fixed height to avoid extra space
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
                 image: card.bgImageUrl != null
                     ? DecorationImage(
                         image: NetworkImage(card.bgImageUrl!),
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover, // Changed to cover for proper scaling
                       )
                     : null,
+                color: card.bgImageUrl == null ? Colors.grey : null, // Fallback color
               ),
-              height: MediaQuery.of(context).size.height * 0.28,
             ),
           );
         }).toList(),
