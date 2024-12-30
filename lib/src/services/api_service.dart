@@ -10,6 +10,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
+      // ignore: avoid_print
       print("API Response: $data");
 
       // Check the structure of hc_groups
