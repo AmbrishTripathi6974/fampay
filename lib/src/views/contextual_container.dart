@@ -35,7 +35,11 @@ class ContextualContainer extends StatelessWidget {
                 case 'HC5':
                   return HC5Card(cardGroup.cards);
                 case 'HC1':
-                  return HC1Card(cardGroup.cards);
+                  final isScrollable = cardGroup.cards.first.isScrollable ?? false;
+                  return HC1Card(
+                    cards: cardGroup.cards,
+                    isScrollable: isScrollable,
+                  );
                 case 'HC9':
                   return HC9Card(cards: cardGroup.cards);
                 default:

@@ -31,6 +31,7 @@ class CardDetails {
   final HC9Gradient? bgGradient;
   final List<CTA>? cta;
   final double? aspectRatio;
+  final bool? isScrollable; // Nullable to reflect absence in JSON
 
   CardDetails({
     required this.id,
@@ -46,6 +47,7 @@ class CardDetails {
     this.bgImageUrl,
     this.bgColor,
     this.cta,
+    this.isScrollable, // Nullable
   });
 
   factory CardDetails.fromJson(Map<String, dynamic> json) {
@@ -72,6 +74,7 @@ class CardDetails {
               ?.map((e) => CTA.fromJson(e))
               .toList() ??
           [],
+      isScrollable: json['is_scrollable'], // Parse directly without default value
     );
   }
 
@@ -85,6 +88,7 @@ class CardDetails {
     }
   }
 }
+
 
 class FormattedText {
   final String text;
