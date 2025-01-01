@@ -1,7 +1,6 @@
 # 🌟 My FamPay Assignment App
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.4.4-blue?style=flat-square&logo=flutter&logoColor=white)  
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)  
 ![Build](https://img.shields.io/badge/Build-Passing-brightgreen?style=flat-square)  
 ![Figma](https://img.shields.io/badge/Design-Figma-red?style=flat-square&logo=figma&logoColor=white)  
 
