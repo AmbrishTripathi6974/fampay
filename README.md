@@ -95,9 +95,9 @@ The project follows **clean architecture principles** to ensure scalability and 
 
 ---  
 
-## 🖥️ Screenshots
+## 🖥️ Screenshots & APK
 
-### Coming Soon
+You can download the **latest version** of the application directly from the **Releases** section of this repository.
 
 ---  
 
